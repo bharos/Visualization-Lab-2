@@ -20,8 +20,10 @@ def plot_elbow(values):
     k_euclid = [cdist(values, cent) for cent in centroids]
     dist = [np.min(ke, axis=1) for ke in k_euclid]
     wcss = [sum(d**2) for d in dist]
-    plt.plot(wcss)
-    plt.show()
+
+    return wcss
+    # plt.plot(wcss)
+    # plt.show()
 
 
 

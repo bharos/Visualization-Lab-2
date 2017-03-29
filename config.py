@@ -1,5 +1,5 @@
 class files:
-    csv_file = "Caschool.csv"
+    csv_file = "RiceFarms.csv"
 
 class constants:
-    sample_fraction = 0.07
+    sample_fraction = 0.38

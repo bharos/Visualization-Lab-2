@@ -65,19 +65,25 @@
                     </a>
                 </li>
                 <li>
-                    <a href="typography.html">
+                    <a href="/matrix_template">
                         <i class="pe-7s-news-paper"></i>
                         <p>Scatterplot Matrix</p>
                     </a>
                 </li>
                 <li>
-                    <a href="icons.html">
+                    <a href="/scree_template">
                         <i class="pe-7s-science"></i>
                         <p>Scree Plot</p>
                     </a>
                 </li>
                 <li>
-                    <a href="maps.html">
+                    <a href="intrinsic_template">
+                        <i class="pe-7s-map-marker"></i>
+                        <p>Intrinsic Dimensionality</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/elbow_template">
                         <i class="pe-7s-map-marker"></i>
                         <p>K Means Elbow</p>
                     </a>
@@ -118,32 +124,48 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-8">
-                        <div class="card">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="card" >
+
                             <div class="header">
-                                <h4 class="title">PCA ScatterPlot </h4>
+                                <h4 class="title">PCA ScatterPlot - Click to toggle</h4>
                                 <p class="category">Random Sampling</p>
                             </div>
-                            <div class="content">
-                            <div id = "scatter_plot" class="ct-chart ct-perfect-fourth"></div>
-                                
 
-                                <!-- <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Bounce
-                                        <i class="fa fa-circle text-warning"></i> Unsubscribe
+                    
+                              <!--     <div id="turn">
+                                    <figure class="front">
+                                    
+                                    <div id = "scatter_plot_front" class="ct-chart ct-perfect-fourth"></div>
+                    
+                                    </figure>
+                                    <figure class="back">
+                                        <div>ffffffffffffff</div>
+                                        <div id = "scatter_plot_back" class="ct-chart ct-perfect-fourth"></div>
+                                        
+                                    </figure>
+                                  </div> -->
+
+                                  <div class="content">
+                                    <div id="myCard"  class="flip-container">
+                                        <div class="flipper">
+                                            <div class="front">
+                                                <!-- front content -->
+                                                <div id = "scatter_plot_front" class="ct-chart ct-perfect-fourth"></div>
+                                            </div>
+                                            <div class="back">
+                                                <!-- back content -->
+                                                 <div id = "scatter_plot_back" class="ct-chart ct-perfect-fourth"></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-                                    </div>
-                                </div> -->
-                            </div>
+
+
+                                </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">PCA Scatterplot</h4>
@@ -154,10 +176,8 @@
                                 
                             </div>
                         </div>
-                    </div>
-                </div>
-
-
+                    </div> -->
+                
 
             </div>
         </div>
@@ -180,6 +200,71 @@
 
 
 <script type="text/javascript">
+
+// Element.prototype.hasClassName = function (a) {
+//     return new RegExp("(?:^|\\s+)" + a + "(?:\\s+|$)").test(this.className);
+// };
+
+// Element.prototype.addClassName = function (a) {
+//     if (!this.hasClassName(a)) {
+//         this.className = [this.className, a].join(" ");
+//     }
+// };
+
+// Element.prototype.removeClassName = function (b) {
+//     if (this.hasClassName(b)) {
+//         var a = this.className;
+//         this.className = a.replace(new RegExp("(?:^|\\s+)" + b + "(?:\\s+|$)", "g"), " ");
+//     }
+// };
+
+// Element.prototype.toggleClassName = function (a) {
+//   this[this.hasClassName(a) ? "removeClassName" : "addClassName"](a);
+// };
+
+var da;
+
+    
+   document.getElementsByClassName('content')[0].addEventListener( 'click', function(){  
+    console.log("GGG");
+        console.log(da);
+        if($("#myCard").hasClass('flip'))
+        {
+                plot_values(da,'pca','front','random');
+                $(".category").text('Random Sampling');
+        }
+        else
+        {
+                plot_values(da,'pca','back','stratified');
+                $(".category").text('Stratified Sampling');
+                
+        }
+
+        document.querySelector("#myCard").classList.toggle("flip");
+        console.log(document.querySelector("#myCard"));
+   });
+   
+
+
+// var init = function() {
+
+  
+//   document.getElementById('turn').addEventListener( 'click', function(){
+//     turn.toggleClassName('flipped');
+//     console.log(da);
+//     if($('#turn').hasClass('flipped'))
+//     {
+//         plot_values(da,'euclidean','back');  
+//     }
+//     else
+//     {
+//         plot_values(da,'pca','front');     
+//     }
+    
+//   }, false);
+// };
+
+// window.addEventListener('DOMContentLoaded', init, false);
   var w = 940;
     var h = 300;
     var pad = 20;
@@ -194,13 +279,16 @@
 
 
 queue()
-    .defer(d3.json, '/data')
+    .defer(d3.json, '/pca_data')
     .await(plotGraph);
 var svg,svg2,svg3,svg4;
+
 function plotGraph(error, data) {
 
     console.log("LLLLLL");
-    plot_values(data,'pca');
+    da = data;
+    plot_values(da,'pca','front','random');
+    
     // plot_values(data,'correlation');
     // plot_values(data,'euclidean');
 
